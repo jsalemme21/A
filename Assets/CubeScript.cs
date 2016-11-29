@@ -18,14 +18,14 @@ public class CubeScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKey(KeyCode.W)){
-			transform.Translate (new Vector3 (0,0,1)*Time.deltaTime*moveSpeed, Space.World);
+			rbody.AddForce (new Vector3 (0,0,1)*Time.deltaTime*moveSpeed);
 		}
 		if(Input.GetKey(KeyCode.S)){
-			transform.Translate (new Vector3 (0,0,-1)*Time.deltaTime*moveSpeed, Space.World);
+			rbody.AddForce (new Vector3 (0,0,-1)*Time.deltaTime*moveSpeed);
 		}if(Input.GetKey(KeyCode.A)){
-			transform.Translate (new Vector3 (-1,0,0)*Time.deltaTime*moveSpeed, Space.World);
+			rbody.AddForce (new Vector3 (-1,0,0)*Time.deltaTime*moveSpeed);
 		}if(Input.GetKey(KeyCode.D)){
-			transform.Translate (new Vector3 (1,0,0)*Time.deltaTime*moveSpeed, Space.World);
+			rbody.AddForce (new Vector3 (1,0,0)*Time.deltaTime*moveSpeed);
 		}if (Input.GetKeyDown (KeyCode.Space)) {
 			if (onground) {
 				rbody.AddForce (Vector3.up * jumpHeight);	
@@ -33,6 +33,9 @@ public class CubeScript : MonoBehaviour {
 
 
 		}
+
+		rbody.velocity = Vector3.ClampMagnitude (rbody.velocity, 4.5f);
+
 	}
 
 	void OnCollisionEnter(Collision col) {
